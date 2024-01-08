@@ -24,8 +24,8 @@ static const uint8_t CHANNEL_OUTP_ON = 0x10;
 static const uint8_t MODE_MASK = 0x07;
 
 void WavinAhc9000::setup() {
-  rw_pin_->pin_mode(gpio::FLAG_OUTPUT);
-  rw_pin_->digital_write(false);
+  //rw_pin_->pin_mode(gpio::FLAG_OUTPUT);
+  //rw_pin_->digital_write(false);
 }
 
 void WavinAhc9000::add_temp_callback(int channel, std::function<void(float)> &&callback) {
@@ -161,11 +161,11 @@ void WavinAhc9000::loop() {
     uint16_t crc = crc16(data, 8);
     data[8] = crc & 0xff;
     data[9] = crc >> 8;
-    rw_pin_->digital_write(true);
+    //rw_pin_->digital_write(true);
     parent_->write_array(data, sizeof(data));
     parent_->flush();
     delay(1);
-    rw_pin_->digital_write(false);
+    //rw_pin_->digital_write(false);
     waiting_ = true;
     last_update_time = now;
     return;
@@ -186,7 +186,7 @@ void WavinAhc9000::loop() {
     state_ = 1;
   }
 
-  rw_pin_->digital_write(true);
+  //rw_pin_->digital_write(true);
   ESP_LOGV(TAG, "Sending for channel %d, state %d", channel_ + 1, state_);
   switch(state_) {
     case 1:
@@ -205,7 +205,7 @@ void WavinAhc9000::loop() {
   }
   parent_->flush();
   delay(1);
-  rw_pin_->digital_write(false);
+  //rw_pin_->digital_write(false);
   waiting_ = true;
   last_update_time = now;
 }
