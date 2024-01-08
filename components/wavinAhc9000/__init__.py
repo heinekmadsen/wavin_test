@@ -11,8 +11,8 @@ WavinAhc9000 = wavinAhc9000_ns.class_('WavinAhc9000', cg.PollingComponent)
 CONF_WAVINAHC9000_ID = 'wavinAhc9000_id'
 
 CONFIG_SCHEMA = cv.Schema({
-    cv.GenerateID(): cv.declare_id(WavinAhc9000),
-    cv.Required(CONF_RW_PIN): pins.gpio_output_pin_schema
+    cv.GenerateID(): cv.declare_id(WavinAhc9000)
+#    cv.Required(CONF_RW_PIN): pins.gpio_output_pin_schema
 }).extend(cv.polling_component_schema('60s')).extend(modbus.modbus_device_schema(0x01))
 
 def to_code(config):
